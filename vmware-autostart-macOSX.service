@@ -1,0 +1,18 @@
+[Unit]
+Description=Automatically Start VMware Virtual Machine
+After=network.target vmware.service
+Requires=network.target vmware.service
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/vmrun start "/home/michael/vmware/macOSX/macOSX.vmx" nogui
+ExecStop=/usr/bin/vmrun suspend "/home/michael/vmware/macOSX/macOSX.vmx" nogui
+Restart=no
+RemainAfterExit=yes
+User=michael
+Group=michael
+
+[Install]
+WantedBy=multi-user.target
